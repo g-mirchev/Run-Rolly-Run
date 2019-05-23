@@ -19,6 +19,7 @@ public class Stats : MonoBehaviour
     void Update()
     {
         coinsTxt.text = "Coins collected: " + GameMaster.coins;
-		timeTxt.text = "Total time: ";
+		timeTxt.text = "Total time: " + (GameMaster.time - GameMaster.loadWait);
+		
     }
 }

@@ -8,9 +8,10 @@ public class PlayerMove : MonoBehaviour
 	public KeyCode mL;
 	public KeyCode mR;
 	
-	public float sideSpeed = 0;
 	public int lane = 2;
 	public bool locked = false;
+	
+	public Transform explodeObj;
 	
     // Start is called before the first frame update
     void Start()
@@ -21,37 +22,40 @@ public class PlayerMove : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        GetComponent<Rigidbody>().velocity = new Vector3 (sideSpeed,0,4);
+        GetComponent<Rigidbody>().velocity = new Vector3 (0,0,GameMaster.speed);
 		
 		if (Input.GetKeyDown(KeyCode.A) && (lane > 1) && !locked)
 		{
-			sideSpeed = -2;
 			StartCoroutine (stopSlide());
 			lane -= 1;
 			locked = true;
+			transform.Translate(new Vector3(-1,0,0));
 		}
 		
-		if (Input.GetKeyDown(KeyCode.D) && (lane < 3) && !locked)
+		else if (Input.GetKeyDown(KeyCode.D) && (lane < 3) && !locked)
 		{
-			sideSpeed = 2;
 			StartCoroutine (stopSlide());
 			lane += 1;
 			locked = true;
+			transform.Translate(new Vector3(1,0,0));
 		}
+		
     }
 	
-	void OnCollisionEnter(Collision other)
+	void OnTriggerEnter(Collider other)
 	{
 		if (other.gameObject.tag == "Lethal")
 		{
 			Destroy(gameObject);
-			SceneManager.LoadScene("End");
+			GameMaster.zSpeedAdj = 0;
+			Instantiate(explodeObj, transform.position, explodeObj.rotation);
+			GameMaster.lvlEnd = true;
 		}
-		if (other.gameObject.name == "Pickup")
+		if (other.gameObject.tag == "Pickup")
 		{
 			Destroy(other.gameObject);
 		}
-		if (other.gameObject.name == "Coin")
+		if (other.gameObject.tag == "Coin")
 		{
 			Destroy(other.gameObject);
 			GameMaster.coins += 1;
@@ -60,8 +64,7 @@ public class PlayerMove : MonoBehaviour
 	
 	IEnumerator stopSlide()
 	{
-		yield return new WaitForSeconds (.5f);
-		sideSpeed = 0;
+		yield return new WaitForSeconds (.1f);
 		locked = false;
 	}
 }

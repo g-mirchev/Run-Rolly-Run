@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - Lethal
+  - Coin
+  - Pickup
   layers:
   - Default
   - TransparentFX

@@ -13,9 +13,9 @@ public class Effects : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-		if (gameObject.name == "Pickup")
+		if (gameObject.tag == "Pickup")
 			transform.Rotate(0,0,1);
-		if (gameObject.name == "Coin")
+		if (gameObject.tag == "Coin")
 			transform.Rotate(0,0,2);
     }
 }

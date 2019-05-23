@@ -58,6 +58,8 @@
      <Compile Include="Assets\Scripts\GameMaster.cs" />
      <Compile Include="Assets\Scripts\PlayerMove.cs" />
      <Compile Include="Assets\Scripts\Stats.cs" />
+     <Compile Include="Assets\Scripts\StatsInGame.cs" />
+     <Compile Include="Assets\Scripts\TerrainCleaner.cs" />
  <Reference Include="Unity.TextMeshPro.Editor">
  <HintPath>C:/K.G/DOCUMENTS/Unity/Run, Rolly, Run!/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
  </Reference>
